@@ -1,9 +1,11 @@
 package com.joe.payp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -11,12 +13,14 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
+import org.joda.time.LocalTime;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class StartParking extends AppCompatActivity {
 
-    String ID;
+    String IDCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,17 @@ public class StartParking extends AppCompatActivity {
         btnStartParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setParked();
+                if(IDCounter != null && !IDCounter.isEmpty()){
+                    setStartTime();
+                    setParked();
+
+                    Intent i = new Intent(StartParking.this, StopParking.class);
+                    startActivity(i);
+                } else{
+                    Toast.makeText(StartParking.this, "An Error Occurred. Please Try Again",
+                            Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -46,14 +60,12 @@ public class StartParking extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
-                String x = snapshot.getValue().toString();
-
-                System.out.println(x);
+                IDCounter = snapshot.getValue().toString();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                IDCounter = dataSnapshot.getValue().toString();
             }
 
             @Override
@@ -81,5 +93,16 @@ public class StartParking extends AppCompatActivity {
         Map<String, Object> parking = new HashMap<String, Object>();
         parking.put("ParkingValue", "1");
         ref2.updateChildren(parking);
+    }
+
+    public void setStartTime(){
+        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + IDCounter);
+        LocalTime startTimeVar = new LocalTime();
+
+        String strStartTime = startTimeVar.toString();
+
+        Map<String, Object> startTime = new HashMap<String, Object>();
+        startTime.put("StartTime", strStartTime);
+        ref3.updateChildren(startTime);
     }
 }
