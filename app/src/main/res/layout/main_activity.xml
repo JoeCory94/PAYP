@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#C5CAE9">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Parking Mode"
-        android:id="@+id/btnStartParking"/>
+        android:id="@+id/btnStartParking"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginTop="100dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parking Mode"
+        android:id="@+id/btnTest"
+        android:backgroundTint="@color/LimeBlue"
+        android:layout_marginTop="200dp"
+        android:width="600dp"
+        android:height="600dp"
+        />
+
+
+    <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#3F51B5"
+    android:id="@+id/bannerTop"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay as You Park"
+        android:layout_alignParentRight="true"
+        android:textColor="#212121"
+        android:textSize="40sp"
+        android:id="@+id/Title"
+        android:layout_alignBottom="@+id/bannerTop"
+        android:layout_marginRight="4dp"/>
 
 </RelativeLayout>
