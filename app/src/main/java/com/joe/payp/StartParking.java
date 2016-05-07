@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class StartParking extends AppCompatActivity {
 
-    String IDCounter;
+    public static String IDCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
