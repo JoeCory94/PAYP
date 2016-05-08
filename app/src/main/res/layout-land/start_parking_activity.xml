@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#303F9F">
+    android:background="#587498">
 
     <Button
         android:layout_width="wrap_content"
@@ -11,9 +13,10 @@
         android:textSize="34sp"
         android:id="@+id/btnStartParking"
         android:background="@drawable/circlebutton"
-        android:width="300dp"
-        android:height="300dp"
+        android:width="220dp"
+        android:height="220dp"
         android:layout_centerInParent="true"
+        android:fontFamily="@string/font_name_roboto"
         />
 
     <RelativeLayout
@@ -43,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textRight"
-            android:text="Built By\n\nJoe Cory\n\nBSc Computing"
+            android:text="To Begin Parking\n\nTap The Start Button"
             android:textSize="22sp"
             android:textColor="#212121"
             android:layout_centerInParent="true"/>
@@ -56,8 +59,10 @@
         android:id="@+id/textTop"
         android:text="Pay As You Park"
         android:textSize="52sp"
-        android:textColor="#212121"
+        android:textColor="#FFF"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:padding="20dp"
+        android:background="@drawable/logo"/>
 
 </RelativeLayout>

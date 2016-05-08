@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#587498">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTop"
+        android:text="Pay As You Park"
+        android:textSize="52sp"
+        android:textColor="#FFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/logo"
+        android:padding="20dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Stop\n Parking"
+        android:textSize="34sp"
         android:id="@+id/btnStopParking"
-        android:text="Stop Parking"/>
+        android:background="@drawable/circlebutton"
+        android:width="220dp"
+        android:height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        />
+
+    <TextView
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textMiddle"
+        android:text="To Stop Parking\n\nTap The Stop Button"
+        android:textSize="22sp"
+        android:textColor="#212121"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnStopParking"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textBottom"
+        android:text="Built By\n\nJoe Cory\n\nBSc Computing"
+        android:textSize="22sp"
+        android:textColor="#212121"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textMiddle"
+        android:layout_marginTop="60dp"/>
 
 </RelativeLayout>

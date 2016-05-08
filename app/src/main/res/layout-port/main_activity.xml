@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Start\n Parking"
         android:textSize="34sp"
-        android:id="@+id/btnParkingMode"
+        android:id="@+id/btnStartParking"
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"
@@ -28,15 +28,15 @@
         android:height="220dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:layout_below="@+id/btnParkingMode"
+        android:layout_below="@+id/btnStartParking"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Help"
+        android:text="Stop\nParking"
         android:textSize="34sp"
-        android:id="@+id/btnAbout"
+        android:id="@+id/btnStopParking"
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"

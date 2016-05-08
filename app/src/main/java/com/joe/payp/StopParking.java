@@ -1,10 +1,14 @@
 package com.joe.payp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -24,6 +28,7 @@ public class StopParking extends AppCompatActivity {
     String endTime;
     Integer Time;
     Double Cost;
+    public static String ParkingValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +37,59 @@ public class StopParking extends AppCompatActivity {
         setContentView(R.layout.stop_parking_activity);
 
         Button stopParking = (Button) findViewById(R.id.btnStopParking);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+        stopParking.setTypeface(typeface);
+
+        TextView logo = (TextView) findViewById(R.id.textTop);
+        logo.setTypeface(typeface);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            TextView text3 = (TextView) findViewById(R.id.textLeft);
+            text3.setTypeface(typeface);
+
+            TextView text4 = (TextView) findViewById(R.id.textRight);
+            text4.setTypeface(typeface);
+        }
+
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            TextView text1 = (TextView) findViewById(R.id.textMiddle);
+            text1.setTypeface(typeface);
+
+            TextView text2 = (TextView) findViewById(R.id.textBottom);
+            text2.setTypeface(typeface);
+        }
+
+        getParkingValue();
 
         stopParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopParking();
-                setEndTime();
+                if(ParkingValue != null && !ParkingValue.isEmpty()) {
+                    if(ParkingValue.equals("0")) {
+                        Toast.makeText(StopParking.this, "You Are Not Currently Parked. Click Start Parking.",
+                                Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(StopParking.this, StartParking.class);
+                        startActivity(i);
+                    }
+                    if(ParkingValue.equals("1")) {
+                        stopParking();
+                        setEndTime();
 
-                Intent i = new Intent(StopParking.this, StartParking.class);
-                startActivity(i);
+                        Intent i = new Intent(StopParking.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                }else{
+                    Toast.makeText(StopParking.this, "Currently Searching Database. Please Try Again",
+                            Toast.LENGTH_SHORT).show();
+                    System.out.println(ParkingValue);
+                }
             }
         });
+
+
+
+
 
     }
 
@@ -50,6 +97,41 @@ public class StopParking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //costCalculation();
+    }
+
+    public void getParkingValue(){
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Parked");
+        Query queryRef = ref.orderByKey();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+                ParkingValue = snapshot.getValue().toString();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                ParkingValue = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
     }
 
     private void stopParking(){

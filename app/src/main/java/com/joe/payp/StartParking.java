@@ -1,12 +1,14 @@
 package com.joe.payp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -43,6 +45,28 @@ public class StartParking extends AppCompatActivity {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
         btnStartParking.setTypeface(typeface);
 
+        TextView logo = (TextView) findViewById(R.id.textTop);
+        logo.setTypeface(typeface);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            TextView text3 = (TextView) findViewById(R.id.textLeft);
+            text3.setTypeface(typeface);
+
+            TextView text4 = (TextView) findViewById(R.id.textRight);
+            text4.setTypeface(typeface);
+        }
+
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            TextView text1 = (TextView) findViewById(R.id.textMiddle);
+            text1.setTypeface(typeface);
+
+            TextView text2 = (TextView) findViewById(R.id.textBottom);
+            text2.setTypeface(typeface);
+        }
+
+
+
         btnStartParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +83,7 @@ public class StartParking extends AppCompatActivity {
                         }
                         if(ParkingValue.equals("1")) {
                             Toast.makeText(StartParking.this, "You Are Already Parking.",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
 
                             Intent a = new Intent(StartParking.this, StopParking.class);
                             startActivity(a);
@@ -68,12 +92,12 @@ public class StartParking extends AppCompatActivity {
                         }
                     }else{
                         Toast.makeText(StartParking.this, "Currently Setting Up Database. Please Try Again",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                         System.out.println(ParkingValue);
                     }
                 } else{
                     Toast.makeText(StartParking.this, "Currently Setting Up Database. Please Try Again",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     System.out.println(ParkingValue);
                 }
 
