@@ -17,7 +17,10 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +46,23 @@ public class StartParking extends AppCompatActivity {
 
         Button btnStartParking = (Button) findViewById(R.id.btnStartParking);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+
         btnStartParking.setTypeface(typeface);
 
         TextView logo = (TextView) findViewById(R.id.textTop);
         logo.setTypeface(typeface);
+
+        Typeface typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface1);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StartParking.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             TextView text3 = (TextView) findViewById(R.id.textLeft);
@@ -74,6 +90,7 @@ public class StartParking extends AppCompatActivity {
                     if(ParkingValue != null && !ParkingValue.isEmpty()) {
                         if(ParkingValue.equals("0")) {
                             setStartTime();
+                            setDate();
                             setParked();
 
                             Intent i = new Intent(StartParking.this, StopParking.class);
@@ -285,11 +302,26 @@ public class StartParking extends AppCompatActivity {
     public void setStartTime(){
         Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/ID" + IDCounter);
         LocalTime startTimeVar = new LocalTime();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss");
 
-        String strStartTime = startTimeVar.toString();
+        String time = fmt.print(startTimeVar);
+
 
         Map<String, Object> startTime = new HashMap<String, Object>();
-        startTime.put("StartTime", strStartTime);
+        startTime.put("StartTime", time);
         ref3.updateChildren(startTime);
+    }
+
+    public void setDate(){
+        Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/ID" + IDCounter);
+        DateTime dt = new DateTime();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yy");
+
+        String date = fmt.print(dt);
+
+
+        Map<String, Object> startTime = new HashMap<String, Object>();
+        startTime.put("Date", date);
+        ref6.updateChildren(startTime);
     }
 }

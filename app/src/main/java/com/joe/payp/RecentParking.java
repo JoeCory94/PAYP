@@ -1,6 +1,7 @@
 package com.joe.payp;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,18 @@ public class RecentParking extends AppCompatActivity {
 
         mListView = (ListView)findViewById(R.id.listView);
 
+        Typeface typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface1);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RecentParking.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     @Override
@@ -61,13 +74,9 @@ public class RecentParking extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                System.out.println("Test 9");
-
-
-
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 String PaymentID = map.get("PaymentID");
-                String Date = "00/00/0000"/*map.get("CityName")*/;
+                String Date = map.get("Date");
                 String Cost = map.get("Cost");
                 String StartTime = map.get("StartTime");
                 String EndTime = map.get("EndTime");

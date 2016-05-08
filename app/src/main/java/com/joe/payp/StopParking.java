@@ -18,6 +18,8 @@ import com.firebase.client.Query;
 
 import org.joda.time.LocalTime;
 import org.joda.time.Minutes;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +44,18 @@ public class StopParking extends AppCompatActivity {
 
         TextView logo = (TextView) findViewById(R.id.textTop);
         logo.setTypeface(typeface);
+
+        Typeface typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface1);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StopParking.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             TextView text3 = (TextView) findViewById(R.id.textLeft);
@@ -146,10 +160,12 @@ public class StopParking extends AppCompatActivity {
         Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + MainActivity.IDCounter);
         LocalTime endTimeVar = new LocalTime();
 
-        String strEndTime = endTimeVar.toString();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss");
+
+        String time = fmt.print(endTimeVar);
 
         Map<String, Object> endTime = new HashMap<String, Object>();
-        endTime.put("EndTime", strEndTime);
+        endTime.put("EndTime", time);
         ref3.updateChildren(endTime);
 
         getTimes();

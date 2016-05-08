@@ -2,12 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#587498">
+    android:background="#0277BD">
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="&#xf015;"
+        android:textColor="@drawable/textcolour"
+        android:textSize="60sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTop"
+        android:text="Pay As You Park"
+        android:textSize="52sp"
+        android:textColor="#FFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/logo"
+        android:padding="20dp"/>
 
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"/>
+        android:id="@+id/listView"
+        android:layout_below="@+id/textTop"
+        android:layout_marginTop="70dp"/>
 
 </RelativeLayout>

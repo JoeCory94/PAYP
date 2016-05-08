@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#587498">
+    android:background="#0277BD">
 
     <Button
         android:layout_width="wrap_content"
@@ -13,7 +13,8 @@
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textTop"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="200dp"
         />
 
@@ -26,7 +27,8 @@
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textTop"
+        android:layout_marginTop="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="200dp"
         />
@@ -40,7 +42,7 @@
         android:textSize="52sp"
         android:textColor="#FFF"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:padding="20dp"
         android:background="@drawable/logo"/>
 
