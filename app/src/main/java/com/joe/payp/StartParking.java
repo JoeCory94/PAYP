@@ -1,6 +1,7 @@
 package com.joe.payp;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,15 +22,20 @@ import java.util.Map;
 public class StartParking extends AppCompatActivity {
 
     public static String IDCounter;
+    public static String DeviceID;
+    String userValid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DeviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
         Firebase.setAndroidContext(this);
         setContentView(R.layout.start_parking_activity);
 
-        getPaymentID();
+        checkUser();
 
         Button btnStartParking = (Button) findViewById(R.id.btnStartParking);
 
@@ -43,7 +49,7 @@ public class StartParking extends AppCompatActivity {
                     Intent i = new Intent(StartParking.this, StopParking.class);
                     startActivity(i);
                 } else{
-                    Toast.makeText(StartParking.this, "An Error Occurred. Please Try Again",
+                    Toast.makeText(StartParking.this, "Currently Setting Up Database. Please Try Again",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -52,8 +58,105 @@ public class StartParking extends AppCompatActivity {
 
     }
 
+    private void checkUser(){
+
+        final Firebase ref4 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/");
+        Query queryRef = ref4.orderByKey();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+                if(snapshot.getKey().toString().equals(DeviceID)){
+                    System.out.println("YES");
+                    userValid = "Valid";
+                    getPaymentID();
+                } else {
+                    if(userValid != "Valid"){
+                        userValid = "NotValid";
+                        System.out.println("NO");
+                    }
+                }
+                if(snapshot.getKey().toString().equals("ZZZZZZZZZZ")){
+                    if(userValid.equals("NotValid")){
+                        setUser();
+                        getPaymentID();
+                    }
+                }
+
+                System.out.println("LOOP 1");
+                System.out.println(userValid);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
+    }
+
+    private void setUser(){
+        System.out.println("SET USER");
+        Firebase ref1 = new Firebase("https://glowing-torch-2458.firebaseio.com/");
+        Firebase userRef = ref1.child("Accounts");
+        Map<String, Object> userID = new HashMap<String, Object>();
+        userID.put(DeviceID, "0");
+        userRef.updateChildren(userID);
+
+        Firebase ref2 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts");
+        Firebase userRef2 = ref2.child(DeviceID);
+        Map<String, Object> userID2 = new HashMap<String, Object>();
+        userID2.put("Parked", "0");
+        userRef2.updateChildren(userID2);
+
+        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID);
+        Firebase userRef3 = ref3.child("Parked");
+        Map<String, Object> userID3 = new HashMap<String, Object>();
+        userID3.put("ParkingValue", "0");
+        userRef3.updateChildren(userID3);
+
+        Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/");
+        Firebase userRef4 = ref.child(DeviceID);
+        Map<String, Object> userID4 = new HashMap<String, Object>();
+        userID4.put("Payments", "0");
+        userRef4.updateChildren(userID4);
+
+        Firebase ref5 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID);
+        Firebase userRef5 = ref5.child("Payments");
+        Map<String, Object> userID5 = new HashMap<String, Object>();
+        userID5.put("IDCounter", "0");
+        userRef5.updateChildren(userID5);
+
+        Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments");
+        Firebase userRef6 = ref6.child("IDCounter");
+        Map<String, Object> userID6 = new HashMap<String, Object>();
+        userID6.put("IDValue", "0");
+        userRef6.updateChildren(userID6);
+
+        System.out.println("End");
+
+    }
+
     public void getPaymentID(){
-        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/IDCounter");
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/IDCounter");
         Query queryRef = ref.orderByKey();
 
         queryRef.addChildEventListener(new ChildEventListener() {
@@ -88,7 +191,7 @@ public class StartParking extends AppCompatActivity {
     }
 
     public void setParked(){
-        Firebase ref2 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Parked");
+        Firebase ref2 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Parked");
 
         Map<String, Object> parking = new HashMap<String, Object>();
         parking.put("ParkingValue", "1");
@@ -96,7 +199,7 @@ public class StartParking extends AppCompatActivity {
     }
 
     public void setStartTime(){
-        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + IDCounter);
+        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/ID" + IDCounter);
         LocalTime startTimeVar = new LocalTime();
 
         String strStartTime = startTimeVar.toString();
