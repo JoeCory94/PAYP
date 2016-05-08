@@ -24,6 +24,7 @@ public class StartParking extends AppCompatActivity {
     public static String IDCounter;
     public static String DeviceID;
     String userValid = "";
+    public static String ParkingValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,34 @@ public class StartParking extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(IDCounter != null && !IDCounter.isEmpty()){
-                    setStartTime();
-                    setParked();
+                    if(ParkingValue != null && !ParkingValue.isEmpty()) {
+                        if(ParkingValue.equals("0")) {
+                            setStartTime();
+                            setParked();
 
-                    Intent i = new Intent(StartParking.this, StopParking.class);
-                    startActivity(i);
+                            Intent i = new Intent(StartParking.this, StopParking.class);
+                            startActivity(i);
+
+                            System.out.println(ParkingValue);
+                        }
+                        if(ParkingValue.equals("1")) {
+                            Toast.makeText(StartParking.this, "You Are Already Parking.",
+                                    Toast.LENGTH_LONG).show();
+
+                            Intent a = new Intent(StartParking.this, StopParking.class);
+                            startActivity(a);
+
+                            System.out.println(ParkingValue);
+                        }
+                    }else{
+                        Toast.makeText(StartParking.this, "Currently Setting Up Database. Please Try Again",
+                                Toast.LENGTH_LONG).show();
+                        System.out.println(ParkingValue);
+                    }
                 } else{
                     Toast.makeText(StartParking.this, "Currently Setting Up Database. Please Try Again",
                             Toast.LENGTH_LONG).show();
+                    System.out.println(ParkingValue);
                 }
 
             }
@@ -71,6 +92,7 @@ public class StartParking extends AppCompatActivity {
                     System.out.println("YES");
                     userValid = "Valid";
                     getPaymentID();
+                    getParkingValue();
                 } else {
                     if(userValid != "Valid"){
                         userValid = "NotValid";
@@ -169,6 +191,41 @@ public class StartParking extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 IDCounter = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
+    }
+
+    public void getParkingValue(){
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Parked");
+        Query queryRef = ref.orderByKey();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+                ParkingValue = snapshot.getValue().toString();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                ParkingValue = dataSnapshot.getValue().toString();
             }
 
             @Override
