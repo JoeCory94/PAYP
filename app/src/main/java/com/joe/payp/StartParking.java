@@ -1,6 +1,7 @@
 package com.joe.payp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class StartParking extends AppCompatActivity {
         checkUser();
 
         Button btnStartParking = (Button) findViewById(R.id.btnStartParking);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+        btnStartParking.setTypeface(typeface);
 
         btnStartParking.setOnClickListener(new View.OnClickListener() {
             @Override

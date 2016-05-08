@@ -2,60 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#303F9F"
-    android:clipChildren="true">
+    android:background="#587498">
 
     <Button
-        android:id="@+id/btnStartParking"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:background="@drawable/mybutton"
-        android:text="Buttons"
-        android:layout_alignLeft="@+id/logo"
-        android:layout_marginTop="420dp"
-        />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:background="@drawable/mybutton"
-        android:text="Buttons"
-        android:layout_alignRight="@+id/logo"
-        android:layout_marginTop="420dp"
-        />
-
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="#303F9F"
-        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start\n Parking"
+        android:textSize="34sp"
+        android:id="@+id/btnParkingMode"
+        android:background="@drawable/circlebutton"
+        android:width="220dp"
+        android:height="220dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/LimeBlue"/>
+        android:layout_marginTop="160dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent\n Parking"
+        android:textSize="34sp"
+        android:id="@+id/btnPaymentMode"
+        android:background="@drawable/circlebutton"
+        android:width="220dp"
+        android:height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/btnParkingMode"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help"
+        android:textSize="34sp"
+        android:id="@+id/btnAbout"
+        android:background="@drawable/circlebutton"
+        android:width="220dp"
+        android:height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/btnPaymentMode"
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textTop"
-        android:text="Some Text Here"
-        android:textSize="22sp"
-        android:layout_marginTop="560dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textBottom"
-        android:text="Some Text Here"
-        android:textSize="22sp"
-        android:layout_marginTop="720dp"
-        android:layout_centerHorizontal="true"/>
-
+        android:text="Pay As You Park"
+        android:textSize="52sp"
+        android:textColor="#FFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/logo"
+        android:padding="20dp"/>
 
 </RelativeLayout>
