@@ -1,6 +1,7 @@
 package com.joe.payp;
 
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class RecentParking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         final ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMessages);
 
@@ -63,16 +63,22 @@ public class RecentParking extends AppCompatActivity {
 
                 System.out.println("Test 9");
 
+
+
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                String PaymentID = "ID"/*map.get("PaymentID")*/;
-                String Date = "Date"/*map.get("CityName")*/;
+                String PaymentID = map.get("PaymentID");
+                String Date = "00/00/0000"/*map.get("CityName")*/;
                 String Cost = map.get("Cost");
                 String StartTime = map.get("StartTime");
                 String EndTime = map.get("EndTime");
 
                 mMessages.add(PaymentID);
 
-                payments.add(new ListObject(PaymentID, Date, Cost, StartTime, EndTime));
+                if(PaymentID != null && !PaymentID.isEmpty()) {
+
+                    payments.add(new ListObject(PaymentID, Date, Cost, StartTime, EndTime));
+
+                }
 
                 LocationAdapter adapter =  new LocationAdapter(payments);
 
@@ -121,19 +127,27 @@ public class RecentParking extends AppCompatActivity {
                         R.layout.recent_payments_object, null);
             }
 
-            TextView lblPaymentID = (TextView)convertView.findViewById(R.id.lblPaymentID);
-            TextView lblDate = (TextView)convertView.findViewById(R.id.lblDate);
-            TextView lblCost = (TextView)convertView.findViewById(R.id.lblCost);
-            TextView lblStartTime = (TextView)convertView.findViewById(R.id.lblStartTime);
-            TextView lblEndTime = (TextView)convertView.findViewById(R.id.lblEndTime);
+            Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+
+            TextView lblPaymentID = (TextView)convertView.findViewById(R.id.PaymentID);
+            TextView lblDate = (TextView)convertView.findViewById(R.id.Date);
+            TextView lblCost = (TextView)convertView.findViewById(R.id.Cost);
+            TextView lblStartTime = (TextView)convertView.findViewById(R.id.StartTime);
+            TextView lblEndTime = (TextView)convertView.findViewById(R.id.EndTime);
 
             ListObject location = payments.get(position);
 
-            lblPaymentID.setText(location.getPaymentID());
+            lblPaymentID.setText("#" + location.getPaymentID());
             lblDate.setText(location.getDate());
             lblCost.setText(location.getCost());
             lblStartTime.setText(location.getStartTime());
             lblEndTime.setText(location.getEndTime());
+
+            lblPaymentID.setTypeface(typeface);
+            lblDate.setTypeface(typeface);
+            lblCost.setTypeface(typeface);
+            lblStartTime.setTypeface(typeface);
+            lblEndTime.setTypeface(typeface);
 
             return convertView;
 
