@@ -4,9 +4,11 @@ package com.joe.payp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,10 +28,9 @@ public class RecentParking extends AppCompatActivity {
     //Firebase
     Firebase mRootRef;
     ArrayList<String> mMessages = new ArrayList<>();
-    private List<ListObject> cities;
+    List<ListObject> payments = new ArrayList<>();
 
     //UI
-    TextView mTextView;
     ListView mListView;
 
     @Override
@@ -49,42 +50,46 @@ public class RecentParking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
         final ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMessages);
 
         mListView.setAdapter(adapter);
-        cities = new ArrayList<>();
-        Firebase messagesRef = mRootRef.child("Payments");
+
+        Firebase messagesRef = mRootRef.child("Accounts/" + MainActivity.DeviceID + "/Payments");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                /*String message = dataSnapshot.getValue(String.class);
-                Log.v("E_VALUE", message);
-                mMessages.add(message);
-                adapter.notifyDataSetChanged();*/
+
+                System.out.println("Test 9");
 
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                String message = "The date was " + map.get("Date") + " and the cost was " + map.get("Cost");
-                //Log.v("E_VALUE", message);
-                mMessages.add(message);
-                /*adapter.notifyDataSetChanged();*/
+                String PaymentID = "ID"/*map.get("PaymentID")*/;
+                String Date = "Date"/*map.get("CityName")*/;
+                String Cost = map.get("Cost");
+                String StartTime = map.get("StartTime");
+                String EndTime = map.get("EndTime");
 
+                mMessages.add(PaymentID);
 
+                payments.add(new ListObject(PaymentID, Date, Cost, StartTime, EndTime));
 
-                cities.add(new ListObject(message,R.mipmap.ic_launcher));
+                LocationAdapter adapter =  new LocationAdapter(payments);
 
-                LocationAdapter adapter = new LocationAdapter(cities);
                 mListView.setAdapter(adapter);
+
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+
 
             }
 
@@ -97,18 +102,6 @@ public class RecentParking extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-        });
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                String selectedCity=mMessages.get(position).toString();
-                Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
-
-            }
-
         });
 
 
@@ -125,21 +118,37 @@ public class RecentParking extends AppCompatActivity {
 
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(
-                        R.layout.parking_list_element, null);
+                        R.layout.recent_payments_object, null);
             }
 
-            ImageView imgCity = (ImageView)convertView.findViewById(R.id.imgCity);
-            TextView lblCity = (TextView)convertView.findViewById(R.id.lblCity);
+            TextView lblPaymentID = (TextView)convertView.findViewById(R.id.lblPaymentID);
+            TextView lblDate = (TextView)convertView.findViewById(R.id.lblDate);
+            TextView lblCost = (TextView)convertView.findViewById(R.id.lblCost);
+            TextView lblStartTime = (TextView)convertView.findViewById(R.id.lblStartTime);
+            TextView lblEndTime = (TextView)convertView.findViewById(R.id.lblEndTime);
 
-            ListObject location = cities.get(position);
+            ListObject location = payments.get(position);
 
-            imgCity.setImageResource(location.getCityPicture());
-            lblCity.setText(location.getCityName());
+            lblPaymentID.setText(location.getPaymentID());
+            lblDate.setText(location.getDate());
+            lblCost.setText(location.getCost());
+            lblStartTime.setText(location.getStartTime());
+            lblEndTime.setText(location.getEndTime());
 
             return convertView;
 
         }// end get view
 
     }// end adapter class
-}
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mMessages.clear();
+        payments.clear();
+
+    }
+
+
+}

@@ -7,14 +7,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start\n Parking"
+        android:text="park\nyour car"
         android:textSize="34sp"
         android:id="@+id/btnStartParking"
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="200dp"
         />
 
     <Button
@@ -22,26 +22,15 @@
         android:layout_height="wrap_content"
         android:text="Recent\n Parking"
         android:textSize="34sp"
-        android:id="@+id/btnPaymentMode"
-        android:background="@drawable/circlebutton"
-        android:width="220dp"
-        android:height="220dp"
-        android:layout_centerInParent="true"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop\nParking"
-        android:textSize="34sp"
-        android:id="@+id/btnStopParking"
+        android:id="@+id/btnRecentPayments"
         android:background="@drawable/circlebutton"
         android:width="220dp"
         android:height="220dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="80dp"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="200dp"
         />
+
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblPaymentIDlbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:text="End Time: "
+        />
+
+    <TextView
+        android:id="@+id/lblPaymentID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/lblPaymentIDlbl"
+        android:text="test"
+        />
+
+    <TextView
+        android:id="@+id/lblDatelbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:text="Date: "
+        />
+
+    <TextView
+        android:id="@+id/lblDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_toRightOf="@+id/lblDatelbl"
+        android:layout_marginTop="60dp"
+        android:text="test"
+        />
+
+    <TextView
+        android:id="@+id/lblCostlbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="60dp"
+        android:layout_alignLeft="@+id/lblEndTimelbl"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/lblDate"
+        android:text="Cost: "
+        />
+
+    <TextView
+        android:id="@+id/lblCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="60dp"
+        android:layout_toRightOf="@+id/lblCostlbl"
+        android:text="test"
+        />
+
+    <TextView
+        android:id="@+id/lblStartTimelbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:text="Start Time: "
+
+        />
+
+    <TextView
+        android:id="@+id/lblStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/lblStartTimelbl"
+        android:text="test"
+
+        />
+
+    <TextView
+        android:id="@+id/lblEndTimelbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/lblStartTime"
+        android:text="End Time: "
+
+        />
+
+    <TextView
+        android:id="@+id/lblEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/lblEndTimelbl"
+        android:text="test"
+
+        />
+
+
+
+
+
+
+</RelativeLayout>

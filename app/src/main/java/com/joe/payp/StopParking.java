@@ -100,7 +100,7 @@ public class StopParking extends AppCompatActivity {
     }
 
     public void getParkingValue(){
-        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Parked");
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Parked");
         Query queryRef = ref.orderByKey();
 
         queryRef.addChildEventListener(new ChildEventListener() {
@@ -135,7 +135,7 @@ public class StopParking extends AppCompatActivity {
     }
 
     private void stopParking(){
-        Firebase ref2 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Parked");
+        Firebase ref2 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Parked");
 
         Map<String, Object> parking = new HashMap<String, Object>();
         parking.put("ParkingValue", "0");
@@ -143,7 +143,7 @@ public class StopParking extends AppCompatActivity {
     }
 
     private void setEndTime(){
-        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Payments/ID" + StartParking.IDCounter);
+        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + MainActivity.IDCounter);
         LocalTime endTimeVar = new LocalTime();
 
         String strEndTime = endTimeVar.toString();
@@ -155,10 +155,19 @@ public class StopParking extends AppCompatActivity {
         getTimes();
     }
 
-    private void incrementID(){
-        Integer newID = Integer.parseInt(StartParking.IDCounter) + 1;
+    private void storeID(){
+        Firebase ref9 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + MainActivity.IDCounter);
 
-        Firebase ref7 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Payments/IDCounter");
+        Map<String, Object> endTime = new HashMap<String, Object>();
+        endTime.put("PaymentID", MainActivity.IDCounter);
+        ref9.updateChildren(endTime);
+
+    }
+
+    private void incrementID(){
+        Integer newID = Integer.parseInt(MainActivity.IDCounter) + 1;
+
+        Firebase ref7 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/IDCounter");
 
         Map<String, Object> ID = new HashMap<String, Object>();
         ID.put("IDValue", String.valueOf(newID));
@@ -167,7 +176,7 @@ public class StopParking extends AppCompatActivity {
 
     private void getTimes(){
 
-        final Firebase ref4 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Payments/ID" + StartParking.IDCounter);
+        final Firebase ref4 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + MainActivity.IDCounter);
         Query queryRef = ref4.orderByKey();
 
         queryRef.addChildEventListener(new ChildEventListener() {
@@ -187,6 +196,7 @@ public class StopParking extends AppCompatActivity {
 
                 if(startTime != null && !startTime.isEmpty()){
                     if(endTime != null && !endTime.isEmpty()){
+                        storeID();
                         costCalculation();
                     }
                 }
@@ -226,7 +236,7 @@ public class StopParking extends AppCompatActivity {
 
         Cost = Time * 0.3;
 
-        Firebase ref5 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + StartParking.DeviceID + "/Payments/ID" + StartParking.IDCounter);
+        Firebase ref5 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/ID" + MainActivity.IDCounter);
 
         Map<String, Object> cost = new HashMap<String, Object>();
         cost.put("Cost", "£"+Cost+"0");
