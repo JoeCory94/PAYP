@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,6 +35,10 @@ public class RecentParking extends AppCompatActivity {
 
     //UI
     ListView mListView;
+
+    Integer Counter = 0;
+
+    public static Integer PaymentIDClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,29 +74,45 @@ public class RecentParking extends AppCompatActivity {
 
         mListView.setAdapter(adapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3)
+            {
+                PaymentIDClicked = Integer.parseInt(mMessages.get(position));
+                //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent (RecentParking.this, PaymentSummary.class);
+                startActivity(i);
+
+            }
+        });
+
         Firebase messagesRef = mRootRef.child("Accounts/" + MainActivity.DeviceID + "/Payments");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                String PaymentID = map.get("PaymentID");
                 String Date = map.get("Date");
                 String Cost = map.get("Cost");
                 String StartTime = map.get("StartTime");
                 String EndTime = map.get("EndTime");
 
-                mMessages.add(PaymentID);
 
-                if(PaymentID != null && !PaymentID.isEmpty()) {
+                mMessages.add(Counter.toString());
 
-                    payments.add(new ListObject(PaymentID, Date, Cost, StartTime, EndTime));
+                if(Counter != null) {
+
+                    payments.add(new ListObject(Counter, Date, Cost, StartTime, EndTime));
 
                 }
 
                 LocationAdapter adapter =  new LocationAdapter(payments);
 
                 mListView.setAdapter(adapter);
+
+                Counter = Counter + 1;
 
 
             }
@@ -170,6 +191,7 @@ public class RecentParking extends AppCompatActivity {
 
         mMessages.clear();
         payments.clear();
+        Counter = 0;
 
     }
 

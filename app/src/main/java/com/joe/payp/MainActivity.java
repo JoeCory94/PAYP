@@ -35,7 +35,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     public static String DeviceID;
-    public static String IDCounter;
+    public static Integer IDCounter;
     String ParkingValue;
     String userValid = "";
     public static String ParkingLocation = "Tap The PAYP NFC Tag.";
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments");
         Firebase userRef6 = ref6.child("IDCounter");
         Map<String, Object> userID6 = new HashMap<String, Object>();
-        userID6.put("IDValue", "0");
+        userID6.put("IDValue", 0);
         userRef6.updateChildren(userID6);
 
         getParkingValue();
@@ -372,12 +372,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
-                IDCounter = snapshot.getValue().toString();
+                IDCounter = Integer.parseInt(snapshot.getValue().toString());
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                IDCounter = dataSnapshot.getValue().toString();
             }
 
             @Override

@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class StartParking extends AppCompatActivity {
 
-    public static String IDCounter;
+    public static Integer IDCounter;
     public static String DeviceID;
     String userValid = "";
     public static String ParkingValue;
@@ -86,7 +86,7 @@ public class StartParking extends AppCompatActivity {
         btnStartParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(IDCounter != null && !IDCounter.isEmpty()){
+                if(IDCounter != null ){
                     if(ParkingValue != null && !ParkingValue.isEmpty()) {
                         if(ParkingValue.equals("0")) {
                             setStartTime();
@@ -209,7 +209,7 @@ public class StartParking extends AppCompatActivity {
         Firebase ref5 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID);
         Firebase userRef5 = ref5.child("Payments");
         Map<String, Object> userID5 = new HashMap<String, Object>();
-        userID5.put("IDCounter", "0");
+        userID5.put("IDCounter", 0);
         userRef5.updateChildren(userID5);
 
         Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments");
@@ -230,12 +230,12 @@ public class StartParking extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
-                IDCounter = snapshot.getValue().toString();
+                IDCounter = Integer.parseInt(snapshot.getValue().toString());
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                IDCounter = dataSnapshot.getValue().toString();
+
             }
 
             @Override
@@ -301,7 +301,7 @@ public class StartParking extends AppCompatActivity {
     }
 
     public void setStartTime(){
-        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/ID" + IDCounter);
+        Firebase ref3 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/" + IDCounter);
         LocalTime startTimeVar = new LocalTime();
         DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss");
 
@@ -314,7 +314,7 @@ public class StartParking extends AppCompatActivity {
     }
 
     public void setDate(){
-        Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/ID" + IDCounter);
+        Firebase ref6 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Payments/" + IDCounter);
         DateTime dt = new DateTime();
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yy");
 
