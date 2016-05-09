@@ -3,6 +3,25 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTop"
+        android:text="Pay As You Park"
+        android:textSize="52sp"
+        android:textColor="#FFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/logo"
+        android:padding="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textTop"
+        android:layout_marginTop="70dp"
+        android:id="@+id/block">
+
+    <TextView
         android:id="@+id/lblDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,6 +30,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:text="Date: "
+        android:textColor="#212121"
         />
 
     <TextView
@@ -21,6 +41,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="170dp"
         android:text="test"
+        android:textColor="#212121"
         />
 
     <TextView
@@ -32,6 +53,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:text="Start Time: "
+        android:textColor="#212121"
         />
 
     <TextView
@@ -42,6 +64,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginLeft="170dp"
         android:text="test"
+        android:textColor="#212121"
         />
 
     <TextView
@@ -53,6 +76,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="90dp"
         android:text="Payment ID: "
+        android:textColor="#212121"
         />
 
     <TextView
@@ -64,6 +88,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="test"
+        android:textColor="#212121"
         />
 
     <TextView
@@ -75,6 +100,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:text="End Time: "
+        android:textColor="#212121"
 
         />
 
@@ -86,6 +112,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginLeft="170dp"
         android:text="test"
+        android:textColor="#212121"
 
         />
 
@@ -99,6 +126,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="90dp"
         android:text="Cost: "
+        android:textColor="#212121"
 
         />
 
@@ -111,8 +139,35 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="test"
+        android:textColor="#212121"
 
         />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TotalPayment"
+        android:text="£0.00"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/block"
+        android:textColor="#212121"
+        android:layout_marginTop="70dp"/>
+
+    <Button
+        android:id="@+id/buttonPay"
+        android:text="Pay Now"
+        android:textColor="#212121"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/TotalPayment"
+        android:background="@drawable/squarebutton"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"/>
 
 
 

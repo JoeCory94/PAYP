@@ -258,7 +258,7 @@ public class StopParking extends AppCompatActivity {
         Firebase ref5 = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Payments/" + MainActivity.IDCounter);
 
         Map<String, Object> cost = new HashMap<String, Object>();
-        cost.put("Cost", "£"+strCost);
+        cost.put("Cost", strCost);
         ref5.updateChildren(cost);
 
         Map<String, Object> time = new HashMap<String, Object>();

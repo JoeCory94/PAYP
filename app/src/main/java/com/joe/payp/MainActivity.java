@@ -28,6 +28,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         TextView parkingLocation = (TextView) findViewById(R.id.parkingLocation);
         parkingLocation.setText(ParkingLocation.toString());
 
-
+        
         DeviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
