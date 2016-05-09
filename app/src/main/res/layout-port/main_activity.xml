@@ -43,4 +43,26 @@
         android:background="@drawable/logo"
         android:padding="20dp"/>
 
+    <TextView
+        android:id="@+id/parkingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="#212121"
+        android:textSize="28sp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/parkingLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#212121"
+        android:textSize="22sp"/>
+
+
+
 </RelativeLayout>

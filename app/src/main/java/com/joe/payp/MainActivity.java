@@ -1,13 +1,25 @@
 package com.joe.payp;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
+import android.nfc.tech.NfcF;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -15,6 +27,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
     public static String IDCounter;
     String ParkingValue;
     String userValid = "";
+    public static String ParkingLocation = "Tap The PAYP NFC Tag.";
+
+    private TextView mTextView;
+    private NfcAdapter mNfcAdapter;
+    private PendingIntent mPendingIntent;
+    private IntentFilter[] mIntentFilters;
+    private String[][] mNFCTechLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +53,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         Firebase.setAndroidContext(this);
 
+        TextView parkingLocation = (TextView) findViewById(R.id.parkingLocation);
+        parkingLocation.setText(ParkingLocation.toString());
+
+
         DeviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
+        parkingQuery();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+
 
         Button btnStartParking = (Button) findViewById(R.id.btnStartParking);
         btnStartParking.setTypeface(typeface);
@@ -46,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textTop = (TextView) findViewById(R.id.textTop);
         textTop.setTypeface(typeface);
+
+        TextView parkingText = (TextView) findViewById(R.id.parkingText);
+        parkingText.setTypeface(typeface);
+
 
         btnRecentPayments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +95,90 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        // create an intent with tag data and deliver to this activity
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+            mIntentFilters = new IntentFilter[] { ndefIntent };
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
+        }
+
+        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+
     }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        //String s = action + "\n\n" + tag.toString();
+        String s = "";
+
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
+
+                            s = (
+                                    new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
+                                            textEncoding));
+
+                            Toast.makeText(MainActivity.this, "Parking Location Stored.",
+                                    Toast.LENGTH_SHORT).show();
+
+
+                            //Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
+                            //parkingLocation.setTypeface(typeface);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
+            }
+        }
+
+        ParkingLocation = "Parked At: " + s.toString();
+
+        System.out.println(ParkingLocation);
+
+        TextView parkingLocation = (TextView) findViewById(R.id.parkingLocation);
+        parkingLocation.setText(ParkingLocation.toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.disableForegroundDispatch(this);
+    }
+
+
+
 
     private void checkUser(){
 
@@ -185,7 +299,50 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                ParkingValue = dataSnapshot.getValue().toString();
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
+    }
+
+    public void parkingQuery(){
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Parked");
+        Query queryRef = ref.orderByKey();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+                ParkingValue = snapshot.getValue().toString();
+                if(snapshot.getValue().toString().equals("0")){
+                    TextView parkingText = (TextView) findViewById(R.id.parkingText);
+                    parkingText.setText("You Are Not Currently Parking.");
+                }
+                if(snapshot.getValue().toString().equals("1")){
+                    TextView parkingText = (TextView) findViewById(R.id.parkingText);
+                    parkingText.setText("You Are Currently Parking.");
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override

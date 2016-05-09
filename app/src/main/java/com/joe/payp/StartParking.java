@@ -93,7 +93,7 @@ public class StartParking extends AppCompatActivity {
                             setDate();
                             setParked();
 
-                            Intent i = new Intent(StartParking.this, StopParking.class);
+                            Intent i = new Intent(StartParking.this, MainActivity.class);
                             startActivity(i);
 
                             System.out.println(ParkingValue);
@@ -102,7 +102,7 @@ public class StartParking extends AppCompatActivity {
                             Toast.makeText(StartParking.this, "You Are Already Parking.",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent a = new Intent(StartParking.this, StopParking.class);
+                            Intent a = new Intent(StartParking.this, MainActivity.class);
                             startActivity(a);
 
                             System.out.println(ParkingValue);
@@ -122,6 +122,7 @@ public class StartParking extends AppCompatActivity {
         });
 
     }
+
 
     private void checkUser(){
 

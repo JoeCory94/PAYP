@@ -90,6 +90,8 @@ public class StopParking extends AppCompatActivity {
                         stopParking();
                         setEndTime();
 
+                        MainActivity.ParkingLocation = "Tap The PAYP NFC Tag.";
+
                         Intent i = new Intent(StopParking.this, MainActivity.class);
                         startActivity(i);
                     }

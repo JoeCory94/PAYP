@@ -13,7 +13,6 @@
 </style>
 
     <style name="fa" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:text">@color/LimeBlue</item>
     </style>
 
 </resources>

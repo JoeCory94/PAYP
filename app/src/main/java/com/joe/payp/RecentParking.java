@@ -46,9 +46,9 @@ public class RecentParking extends AppCompatActivity {
 
         mListView = (ListView)findViewById(R.id.listView);
 
-        Typeface typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
         TextView back = (TextView) findViewById(R.id.back);
-        back.setTypeface(typeface1);
+        back.setTypeface(typeface);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
