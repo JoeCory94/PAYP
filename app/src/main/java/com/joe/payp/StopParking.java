@@ -169,6 +169,7 @@ public class StopParking extends AppCompatActivity {
 
         Map<String, Object> endTime = new HashMap<String, Object>();
         endTime.put("EndTime", time);
+        endTime.put("Paid", "0");
         ref3.updateChildren(endTime);
 
         getTimes();

@@ -31,6 +31,7 @@ public class RecentParking extends AppCompatActivity {
     //Firebase
     Firebase mRootRef;
     ArrayList<String> mMessages = new ArrayList<>();
+    ArrayList<String> mPaid = new ArrayList<>();
     List<ListObject> payments = new ArrayList<>();
 
     //UI
@@ -82,9 +83,13 @@ public class RecentParking extends AppCompatActivity {
                 PaymentIDClicked = Integer.parseInt(mMessages.get(position));
                 //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent (RecentParking.this, PaymentSummary.class);
-                startActivity(i);
+                if(mPaid.get(position).toString().equals("1")) {
+                    Toast.makeText(RecentParking.this, "Ticket Already Paid For.", Toast.LENGTH_SHORT).show();
 
+                }else{
+                    Intent i = new Intent(RecentParking.this, PaymentSummary.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -98,14 +103,16 @@ public class RecentParking extends AppCompatActivity {
                 String Cost = map.get("Cost");
                 String StartTime = map.get("StartTime");
                 String EndTime = map.get("EndTime");
+                String Paid = map.get("Paid");
 
-
+                mPaid.add(Paid);
                 mMessages.add(Counter.toString());
 
                 if(Counter != null) {
+                    if (Paid != null){
 
-                    payments.add(new ListObject(Counter, Date, Cost, StartTime, EndTime));
-
+                        payments.add(new ListObject(Counter, Date, Cost, StartTime, EndTime, Paid));
+                    }
                 }
 
                 LocationAdapter adapter =  new LocationAdapter(payments);
@@ -159,25 +166,38 @@ public class RecentParking extends AppCompatActivity {
 
             Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
 
-            TextView lblPaymentID = (TextView)convertView.findViewById(R.id.PaymentID);
-            TextView lblDate = (TextView)convertView.findViewById(R.id.Date);
-            TextView lblCost = (TextView)convertView.findViewById(R.id.Cost);
-            TextView lblStartTime = (TextView)convertView.findViewById(R.id.StartTime);
-            TextView lblEndTime = (TextView)convertView.findViewById(R.id.EndTime);
+            TextView PaymentID = (TextView)convertView.findViewById(R.id.PaymentID);
+            TextView Date = (TextView)convertView.findViewById(R.id.Date);
+            TextView Cost = (TextView)convertView.findViewById(R.id.Cost);
+            TextView StartTime = (TextView)convertView.findViewById(R.id.StartTime);
+            TextView EndTime = (TextView)convertView.findViewById(R.id.EndTime);
+            TextView Paid = (TextView)convertView.findViewById(R.id.Paid);
 
             ListObject location = payments.get(position);
 
-            lblPaymentID.setText("#" + location.getPaymentID());
-            lblDate.setText(location.getDate());
-            lblCost.setText(location.getCost());
-            lblStartTime.setText(location.getStartTime());
-            lblEndTime.setText(location.getEndTime());
+            PaymentID.setText("#" + location.getPaymentID());
+            Date.setText(location.getDate());
+            Cost.setText(location.getCost());
+            StartTime.setText(location.getStartTime());
+            EndTime.setText(location.getEndTime());
 
-            lblPaymentID.setTypeface(typeface);
-            lblDate.setTypeface(typeface);
-            lblCost.setTypeface(typeface);
-            lblStartTime.setTypeface(typeface);
-            lblEndTime.setTypeface(typeface);
+            if(location.getPaid() != null && !location.getPaid().isEmpty()){
+                if(location.getPaid().equals("0")){
+                    Paid.setText("No");
+                }else{
+                    Paid.setText("Yes");
+                }
+            }else{
+                Paid.setText("");
+            }
+
+
+
+            PaymentID.setTypeface(typeface);
+            Date.setTypeface(typeface);
+            Cost.setTypeface(typeface);
+            StartTime.setTypeface(typeface);
+            EndTime.setTypeface(typeface);
 
             return convertView;
 

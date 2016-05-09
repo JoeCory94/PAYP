@@ -9,6 +9,7 @@ public class ListObject implements Serializable{
     private String cost;
     private String startTime;
     private String endTime;
+    private String paid;
 
     public Integer getPaymentID() {
         return paymentID;
@@ -30,11 +31,16 @@ public class ListObject implements Serializable{
         return endTime;
     }
 
-    public ListObject(Integer paymentID, String date, String cost, String startTime, String endTime) {
+    public String getPaid() {
+        return paid;
+    }
+
+    public ListObject(Integer paymentID, String date, String cost, String startTime, String endTime, String paid) {
         this.paymentID = paymentID;
         this.date = date;
         this.cost = cost;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.paid = paid;
     }
 }

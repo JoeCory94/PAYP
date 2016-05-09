@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#0277BD">
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="&#xf015;"
+        android:textColor="@drawable/textcolour"
+        android:textSize="60sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,127 +34,142 @@
         android:layout_marginTop="70dp"
         android:id="@+id/block">
 
-    <TextView
-        android:id="@+id/lblDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:text="Date: "
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/lblDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:text="Date: "
+            />
 
-    <TextView
-        android:id="@+id/Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="170dp"
-        android:text="test"
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="170dp"
+            android:text="test"
+            />
 
-    <TextView
-        android:id="@+id/lblStartTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:text="Start Time: "
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/lblStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:text="Start Time: "
+            />
 
-    <TextView
-        android:id="@+id/StartTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="170dp"
-        android:text="test"
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/StartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="170dp"
+            android:text="test"
+            />
 
-    <TextView
-        android:id="@+id/lblPaymentID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="90dp"
-        android:text="Payment ID: "
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/lblPaymentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"
+            android:text="Payment ID: "
+            />
 
-    <TextView
-        android:id="@+id/PaymentID1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:text="test"
-        android:textColor="#212121"
-        />
+        <TextView
+            android:id="@+id/PaymentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="test"
+            />
 
-    <TextView
-        android:id="@+id/lblEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:text="End Time: "
-        android:textColor="#212121"
+        <TextView
+            android:id="@+id/lblEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:text="End Time: "
 
-        />
+            />
 
-    <TextView
-        android:id="@+id/EndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="170dp"
-        android:text="test"
-        android:textColor="#212121"
+        <TextView
+            android:id="@+id/EndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="170dp"
+            android:text="test"
 
-        />
+            />
 
-    <TextView
-        android:id="@+id/lblCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="90dp"
-        android:text="Cost: "
-        android:textColor="#212121"
+        <TextView
+            android:id="@+id/lblCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"
+            android:text="Cost: "
 
-        />
+            />
 
-    <TextView
-        android:id="@+id/Cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:text="test"
-        android:textColor="#212121"
+        <TextView
+            android:id="@+id/Cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="test"
 
-        />
+            />
+
+        <TextView
+            android:id="@+id/lblPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"
+            android:text="Paid: "
+
+            />
+
+        <TextView
+            android:id="@+id/Paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="test"
+
+            />
 
     </RelativeLayout>
 

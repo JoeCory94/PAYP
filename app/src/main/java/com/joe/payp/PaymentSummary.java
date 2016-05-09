@@ -2,6 +2,7 @@ package com.joe.payp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,18 @@ public class PaymentSummary extends AppCompatActivity {
 
         setContentView(R.layout.payment_summary);
 
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PaymentSummary.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
         Button buttonPay = (Button) findViewById(R.id.buttonPay);
 
         buttonPay.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +81,7 @@ public class PaymentSummary extends AppCompatActivity {
             }
         });
 
-        TextView lblPaymentID = (TextView)findViewById(R.id.PaymentID1);
+        TextView lblPaymentID = (TextView)findViewById(R.id.PaymentID);
         lblPaymentID.setText(RecentParking.PaymentIDClicked.toString());
 
         getPaymentDetails();
@@ -103,24 +116,33 @@ public class PaymentSummary extends AppCompatActivity {
                 }
                 if(snapshot.getKey().toString().equals("Date")){
 
-                    TextView lblDate = (TextView)findViewById(R.id.lblDate);
+                    TextView lblDate = (TextView)findViewById(R.id.Date);
                     lblDate.setText(snapshot.getValue().toString());
 
                 }
                 if(snapshot.getKey().toString().equals("EndTime")){
 
-                    TextView lblEndTime = (TextView)findViewById(R.id.lblEndTime);
+                    TextView lblEndTime = (TextView)findViewById(R.id.EndTime);
                     lblEndTime.setText(snapshot.getValue().toString());
 
                 }
                 if(snapshot.getKey().toString().equals("StartTime")){
 
-                    TextView lblStartTime = (TextView)findViewById(R.id.lblStartTime);
+                    TextView lblStartTime = (TextView)findViewById(R.id.StartTime);
                     lblStartTime.setText(snapshot.getValue().toString());
 
                 }
+                if(snapshot.getKey().toString().equals("Paid")){
+
+                    if(snapshot.getValue().toString().equals("0")){
+                        TextView Paid = (TextView)findViewById(R.id.Paid);
+                        Paid.setText("No");
+                    }
+                }
 
             }
+
+
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {

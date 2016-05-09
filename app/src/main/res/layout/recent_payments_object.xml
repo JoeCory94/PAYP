@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="90dp"
         android:text="Payment ID: "
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="test"
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="60dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="90dp"
@@ -104,6 +104,31 @@
 
     <TextView
         android:id="@+id/Cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="test"
+
+        />
+
+    <TextView
+        android:id="@+id/lblPaid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="90dp"
+        android:text="Paid: "
+
+        />
+
+    <TextView
+        android:id="@+id/Paid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
