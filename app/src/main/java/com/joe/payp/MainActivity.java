@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
 
-
         Button btnStartParking = (Button) findViewById(R.id.btnStartParking);
         btnStartParking.setTypeface(typeface);
 

@@ -191,8 +191,6 @@ public class RecentParking extends AppCompatActivity {
                 Paid.setText("");
             }
 
-
-
             PaymentID.setTypeface(typeface);
             Date.setTypeface(typeface);
             Cost.setTypeface(typeface);

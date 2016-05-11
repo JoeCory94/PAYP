@@ -110,11 +110,6 @@ public class StopParking extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //costCalculation();
-    }
 
     public void getParkingValue(){
         final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + MainActivity.DeviceID + "/Parked");

@@ -30,6 +30,6 @@ dependencies {
     compile 'joda-time:joda-time:2.9.2' // for joda
     compile "com.android.support:cardview-v7:23.3.0"
     compile 'com.android.support:appcompat-v7:23.3.0'
-    //You have to add this line
+
     compile 'com.paypal.sdk:paypal-android-sdk:2.14.2'
 }
