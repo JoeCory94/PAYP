@@ -7,7 +7,7 @@
         android:id="@+id/back"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text="&#xf015;"
+        android:text="&#xf060;"
         android:textColor="@drawable/textcolour"
         android:textSize="60sp"
         android:layout_marginTop="10dp"

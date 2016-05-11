@@ -40,7 +40,7 @@ public class PaymentSummary extends AppCompatActivity {
     private static PayPalConfiguration config = new PayPalConfiguration()
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
             // or live (ENVIRONMENT_PRODUCTION)
-            .environment(PayPalConfiguration.ENVIRONMENT_PRODUCTION)
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
 
 
@@ -59,7 +59,7 @@ public class PaymentSummary extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(PaymentSummary.this, MainActivity.class);
+                Intent i = new Intent(PaymentSummary.this, RecentParking.class);
                 startActivity(i);
             }
         });

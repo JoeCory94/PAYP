@@ -28,12 +28,24 @@
         android:background="@drawable/logo"
         android:padding="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textDesc"
+        android:text="Click a Parking Session\nTo Pay For It."
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="#212121"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textTop"/>
+
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/textTop"
-        android:layout_marginTop="70dp"/>
+        android:layout_below="@+id/textDesc"
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

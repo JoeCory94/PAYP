@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         Firebase.setAndroidContext(this);
 
+
+
         TextView parkingLocation = (TextView) findViewById(R.id.parkingLocation);
         parkingLocation.setText(ParkingLocation.toString());
 
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         DeviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        parkingQuery();
+        checkUser();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto.ttf");
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkUser();
+                getParkingMode();
             }
         });
 
@@ -275,10 +277,47 @@ public class MainActivity extends AppCompatActivity {
 
         getParkingValue();
         getPaymentID();
+        parkingQuery();
 
     }
 
     public void getParkingValue(){
+        final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Parked");
+        Query queryRef = ref.orderByKey();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+                ParkingValue = snapshot.getValue().toString();
+                parkingQuery();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
+    }
+
+    public void getParkingMode(){
         final Firebase ref = new Firebase("https://glowing-torch-2458.firebaseio.com/Accounts/" + DeviceID + "/Parked");
         Query queryRef = ref.orderByKey();
 
